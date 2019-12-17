@@ -23,6 +23,7 @@ RUN mv composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer
 # RUN echo 'node ALL=NOPASSWD: ALL' >> /etc/sudoers.d/50-node \
 # && echo 'Defaults    env_keep += "DEBIAN_FRONTEND"' >> /etc/sudoers.d/env_keep
 
+
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get install -y nodejs
 
@@ -34,9 +35,12 @@ RUN mkdir /var/www/.npm
 RUN chown -R 1000:1000 "/var/www/.npm"
 
 
+RUN  apt-get update && apt install -y git pandoc
+
 RUN usermod -u 1000 www-data
 RUN groupmod -g 1000 www-data
 USER www-data
+# USER circleci
 
-EXPOSE 80
+# EXPOSE 80
 EXPOSE 8000
